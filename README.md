@@ -19,7 +19,7 @@
    cd xui-ping
    ```
 
-2. وابستگی‌ها را نصب کنید:
+2. پیش نیاز ها را نصب کنید:
    ```
    sudo apt install curl python3 python3-pip
    pip3 install requests
@@ -46,7 +46,7 @@
    cd xui-ping
    ```
 
-2. وابستگی‌ها را نصب کنید:
+2. پیشنیاز ها را نصب کنید:
    ```
    sudo apt install curl python3 python3-pip
    pip3 install requests
