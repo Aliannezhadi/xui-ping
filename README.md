@@ -12,22 +12,33 @@
 
 ### نصب سریع
 
-برای نصب سریع اسکریپت، تنها کافیست این دستورها را اجرا کنید:
+برای نصب سریع اسکریپت، تنها کافیست این دستور را در ترمینال وارد کنید:
+
+```bash
+bash <(curl -Ls https://raw.githubusercontent.com/Aliannezhadi/xui-ping/main/install_ping_xui.sh)
+```
+
+این دستور اسکریپت را از گیت‌هاب دانلود کرده و به صورت خودکار نصب و اجرا می‌کند.
+
+---
+
+### نصب و راه‌اندازی دستی
+
 1. ریپازیتوری را کلون کنید:
    ```
    git clone https://github.com/Aliannezhadi/xui-ping.git
    cd xui-ping
    ```
 
-2. پیش نیاز ها را نصب کنید:
+2. پیش نیاز‌ها را نصب کنید:
    ```
    sudo apt install curl python3 python3-pip
    pip3 install requests
    ```
 
-3. برای راه‌اندازی سریع:
+3. اسکریپت را اجرا کنید:
    ```
-   ./install_ping_xui.sh
+   sudo ./install_ping_xui.sh
    ```
 
 ---
@@ -46,7 +57,7 @@
    cd xui-ping
    ```
 
-2. پیشنیاز ها را نصب کنید:
+2. پیش نیاز‌ها را نصب کنید:
    ```
    sudo apt install curl python3 python3-pip
    pip3 install requests
