@@ -2,10 +2,10 @@
 #!/bin/bash
 
 # درخواست توکن ربات تلگرام و شناسه چت از کاربر
-echo "لطفاً توکن ربات تلگرام خود را وارد کنید:"
+echo "Please Enter your Telegram Token:"
 read TELEGRAM_TOKEN  # دریافت توکن ربات تلگرام از کاربر
 
-echo "لطفاً شناسه چت تلگرام خود را وارد کنید:"
+echo "Please Enter Your Telegram CHAT ID:"
 read CHAT_ID  # دریافت شناسه چت تلگرام از کاربر
 
 XUI_URL="http://127.0.0.1:3000"  # به آدرس پنل XUI خود تغییر دهید
