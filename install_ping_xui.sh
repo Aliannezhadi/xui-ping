@@ -1,67 +1,68 @@
-
 #!/bin/bash
 
-# درخواست توکن ربات تلگرام و شناسه چت از کاربر
-echo "Please Enter your Telegram Token:"
-read TELEGRAM_TOKEN  # دریافت توکن ربات تلگرام از کاربر
+# Requesting Telegram Bot Token and Chat ID from the user
+echo "Please enter your Telegram Bot Token:"
+read TELEGRAM_TOKEN  # Getting the Telegram bot token from the user
 
-echo "Please Enter Your Telegram CHAT ID:"
-read CHAT_ID  # دریافت شناسه چت تلگرام از کاربر
+echo "Please enter your Telegram Chat ID:"
+read CHAT_ID  # Getting the chat ID from the user
 
-XUI_URL="http://127.0.0.1:3000"  # به آدرس پنل XUI خود تغییر دهید
+XUI_URL="http://127.0.0.1:3000"  # Change to your XUI panel URL
 
-# ارسال پیام به تلگرام
+# Send message to Telegram in Persian
 send_telegram_message() {
     local message="$1"
-    curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage"          -d chat_id="$CHAT_ID"          -d text="$message"
+    curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
+         -d chat_id="$CHAT_ID" \
+         -d text="$message"
 }
 
-# بروزرسانی پکیج‌ها
-echo "بروزرسانی پکیج‌ها..."
+# Updating packages
+echo "Updating packages..."
 sudo apt update && sudo apt upgrade -y
 
-# نصب وابستگی‌ها
-echo "نصب وابستگی‌ها..."
+# Installing dependencies
+echo "Installing dependencies..."
 sudo apt install -y curl python3 python3-pip
 
-# نصب کتابخانه‌های Python
-echo "نصب کتابخانه‌های Python..."
+# Installing Python libraries
+echo "Installing Python libraries..."
 pip3 install requests
 
-# ایجاد اسکریپت پینگ XUI
-echo "ایجاد اسکریپت پینگ XUI..."
+# Creating the XUI ping script
+echo "Creating XUI ping script..."
 cat > /usr/local/bin/ping_xui.sh << EOL
 #!/bin/bash
 
-# پینگ پنل XUI
+# Ping the XUI panel
 while true; do
-    # پینگ پنل XUI
+    # Ping the XUI panel
     response=\$(curl --silent --head --fail "\$XUI_URL")
     
     if [ \$? -eq 0 ]; then
-        echo "XUI در حال اجرا است."
+        echo "XUI is running."
     else
-        # بررسی دلیل قطع شدن
+        # Check the failure reason
         if [[ "\$response" == *"404 Not Found"* ]]; then
-            send_telegram_message "XUI ghat shode ast! Daliresh: 404 Not Found."
+            send_telegram_message "پنل XUI قطع شده است! دلیل: 404 Not Found."
         elif [[ "\$response" == *"Connection refused"* ]]; then
-            send_telegram_message "XUI ghat shode ast! Daliresh: Connection refused."
+            send_telegram_message "پنل XUI قطع شده است! دلیل: Connection refused."
         else
-            send_telegram_message "XUI ghat shode ast! Daliresh: Gheyre movafagh be dastras."
+            send_telegram_message "پنل XUI قطع شده است! دلیل: امکان دسترسی وجود ندارد."
         fi
-        break  # در صورت قطع شدن XUI، از حلقه خارج می‌شود
+        break  # Exit the loop if XUI is down
     fi
     sleep 1
 done
 EOL
 
-# اعطای مجوز اجرا به اسکریپت
+# Granting execute permission to the script
 sudo chmod +x /usr/local/bin/ping_xui.sh
 
-# اجرای اسکریپت
-echo "اجرای اسکریپت..."
+# Running the script
+echo "Running the script..."
 /usr/local/bin/ping_xui.sh &
-echo "اسکریپت در حال اجرا است..."
+echo "Script is running..."
 
-# تکمیل فرآیند نصب
-echo "تمام مراحل نصب و پیکربندی تکمیل شد."
+# Completing the installation
+echo "All installation and configuration steps are complete."
